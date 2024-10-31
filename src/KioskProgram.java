@@ -13,6 +13,10 @@ public class KioskProgram {
     private Integer menuQuantity = 0;
     private Integer totalPrice = 0;
 
+    public void setMenuNumber(Integer menuNumber) {
+        this.menuNumber = menuNumber;
+    }
+
     private int MENU_MAXOPTION = 0;
 
     public void initKiosk() {
