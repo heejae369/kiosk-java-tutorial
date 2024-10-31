@@ -2,6 +2,9 @@ import java.util.Map;
 
 public class KioskUtils {
 
+    private static final int MAX_QUANTITY = 99;
+    private static final int MIN_QUANTITY = 1;
+
     public static Integer calculateTotalPrice(Integer price, Integer count) {
         return price * count;
     }
@@ -12,7 +15,7 @@ public class KioskUtils {
 
     public static boolean isValidQuantity(int quantity) {
         // 리턴을 조건식만 반환해도됨
-        return (0 < quantity & quantity < 100);
+        return (MIN_QUANTITY <= quantity & quantity <= MAX_QUANTITY);
     }
 
     public static int maxOptionCalculater(Map map) {
