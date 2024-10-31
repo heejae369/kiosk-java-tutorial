@@ -4,9 +4,6 @@ public class Main {
 
         KioskProgram kioskProgram = new KioskProgram();
         kioskProgram.initKiosk();
-        kioskProgram.welcomeMessage();
-//        kioskProgram.collectMenuNumber();
-//        kioskProgram.setQuantity();
-        kioskProgram.setTotalPrice(kioskProgram.collectMenuNumber(), kioskProgram.setQuantity());
+        kioskProgram.printTotalPrice(kioskProgram.collectMenuNumber(), kioskProgram.setQuantity());
     }
 }

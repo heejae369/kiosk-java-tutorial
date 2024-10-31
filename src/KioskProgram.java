@@ -13,21 +13,25 @@ public class KioskProgram {
     private Integer menuQuantity = 0;
     private Integer totalPrice = 0;
 
+    private int MENU_MAXOPTION = 0;
+
     public void initKiosk() {
         menu.put(1, new FoodItem("김밥", 1000));
         menu.put(2, new FoodItem("계란 김밥", 1500));
         menu.put(3, new FoodItem("충무 김밥", 1000));
         menu.put(4, new FoodItem("떡볶이", 2000));
+
+        MENU_MAXOPTION = KioskUtils.maxOptionCalculater(menu);
     }
 
 
-    public void welcomeMessage() {
+    private void welcomeMessage() {
         System.out.println("[안내]안녕하세요. 분식점에 오신 것을 환영합니다.");
         printLine();
     }
 
     public Integer collectMenuNumber() {
-        //welcomeMessage();
+        welcomeMessage();
         do {
             System.out.println("[안내]원하시는 메뉴의 번호를 입력하여 주세요");
             System.out.println("1) 김밥(1000원) 2) 계란 김밥(1500원) 3) 충무 김밥(1000원) 4) 떡볶이(2000원)");
@@ -35,7 +39,7 @@ public class KioskProgram {
             try {
                 menuNumber = sc.nextInt();
 
-                if (1 > menuNumber || menuNumber > 4) {
+                if (!KioskUtils.isValidMenuOption(menuNumber, MENU_MAXOPTION)) {
                     System.out.println("[안내]메뉴에 포함된 번호를 입력하여 주세요.");
                 }
 
@@ -43,7 +47,7 @@ public class KioskProgram {
                 System.out.println("잘못된 타입 입력 : " + e.getCause());
                 sc.nextLine();
             }
-        } while (1 > menuNumber || menuNumber > 4);
+        } while (!KioskUtils.isValidMenuOption(menuNumber, MENU_MAXOPTION));
         printLine();
         return menuNumber;
     }
@@ -56,7 +60,7 @@ public class KioskProgram {
             try {
                 menuQuantity = sc.nextInt();
 
-                if (menuQuantity > 99 || menuQuantity < 1) {
+                if (!KioskUtils.isValidQuantity(menuQuantity)) {
                     System.out.println("[경고] " + menuQuantity + "개는 입력하실 수 없습니다.");
                     System.out.println("[경고]수량 선택 화면으로 돌아갑니다.");
                     printLine();
@@ -69,12 +73,13 @@ public class KioskProgram {
                 //continue;
 
             }
-        } while (menuQuantity > 99 || menuQuantity < 1);
+        } while (!KioskUtils.isValidQuantity(menuQuantity));
         return menuQuantity;
     }
 
-    public void setTotalPrice(Integer menuNumber, Integer menuQuantity) {
-        totalPrice = menu.get(menuNumber).getPrice() * menuQuantity;
+    public void printTotalPrice(Integer menuNumber, Integer menuQuantity) {
+        Integer price = menu.get(menuNumber).getPrice();
+        Integer totalPrice = KioskUtils.calculateTotalPrice(price, menuQuantity);
         System.out.println("[안내]주문하신 메뉴의 총 금액은 " + totalPrice + "원 입니다.");
     }
 
